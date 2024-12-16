@@ -10,19 +10,26 @@ const Statistics = ({good, neutral, bad, allClicks, averageClicks, positiveClick
   return (
     <div>
       <h1>Statistics</h1>
-      <StatisticLine text="good" value ={good} />
-      <StatisticLine text="neutral" value ={neutral} />
-      <StatisticLine text="bad" value ={bad} />
-      <StatisticLine text="all" value ={allClicks} />
-      <StatisticLine text="average" value ={averageClicks} />
-      <StatisticLine text="positive" value ={positiveClicks} text2="%"/>
+      <table>
+        <tbody>
+          <StatisticLine text="good" value ={good} />
+          <StatisticLine text="neutral" value ={neutral} />
+          <StatisticLine text="bad" value ={bad} />
+          <StatisticLine text="all" value ={allClicks} />
+          <StatisticLine text="average" value ={averageClicks} />
+          <StatisticLine text="positive" value ={positiveClicks} text2="%"/>
+        </tbody>
+      </table>
     </div>
   )
 }
 
-const StatisticLine = (props) => {
+const StatisticLine = (props) => { 
   return (
-    <p>{props.text} {props.value} {props.text2}</p>
+    <tr>
+      <td>{props.text}</td>
+      <td>{props.value}{props.text2}</td>
+    </tr>
   )
 }
 
