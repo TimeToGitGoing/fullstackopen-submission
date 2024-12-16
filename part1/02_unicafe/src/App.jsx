@@ -2,11 +2,10 @@ import { useState } from 'react'
 
 const Statistics = (props) => {
   if (props.allClicks === 0) {
-    return (
-      <div>
-        No feedback given
-      </div>
-    )
+    return <>
+      <h1>Statistics</h1>
+      <div>No feedback given</div>
+      </>
   }  
   return <>
     <h1>Statistics</h1>
