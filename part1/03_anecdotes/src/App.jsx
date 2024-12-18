@@ -24,20 +24,45 @@ const App = () => {
     return setSelected(randomNumber)
   }
 
+  const updatedVotes = [...votes]
+  let highestVotedAnecdote = null
+
   const addVote = () => {
-    const updatedVotes = [...votes]
-    console.log(updatedVotes)
     updatedVotes[selected] += 1
     setVotes(updatedVotes)
+    highestVotedAnecdote = Math.max(...updatedVotes)
+  }
+
+  function indexOfMax(updatedVotes) {
+    if (updatedVotes.length === 0) {
+        return -1;
+    }
+
+    let max = updatedVotes[0];
+    let maxIndex = 0;
+
+    for (let i = 1; i < updatedVotes.length; i++) {
+        if (updatedVotes[i] > max) {
+            maxIndex = i;
+            max = updatedVotes[i];
+        }
+    }
+
+    return maxIndex;
   }
 
   return (
     <div>
-      {anecdotes[selected]}
+      <h1>Anecdote of the day</h1>
+      <p>{anecdotes[selected]}</p>
       <p>has {votes[selected]} votes</p>
       
       <button onClick={addVote}>vote</button>
       <button onClick={randomNumber}>next anecdote</button>
+
+      <h1>Anecdote with most votes</h1>
+      <p>{anecdotes[indexOfMax(updatedVotes)]}</p>
+      <p>has {votes[indexOfMax(updatedVotes)]} votes</p>
     </div>
   )
 }
