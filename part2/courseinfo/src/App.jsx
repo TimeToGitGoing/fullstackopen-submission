@@ -20,8 +20,8 @@ const Content = ({ parts }) =>
     />      
   </>
 
-const Course = ({ course }) => {
-  console.log(course)
+const Course = ({ course, sum }) => {
+  console.log(sum)
   return (
     <>
       <Header course={course.name}/>
@@ -29,7 +29,7 @@ const Course = ({ course }) => {
       <Part part={course.parts[1]}/>
       <Part part={course.parts[2]}/>
       <Part part={course.parts[3]}/>
-      <Total sum={course.parts[0].exercises + course.parts[1].exercises + course.parts[2].exercises + course.parts[3].exercises}/>
+      <Total sum={sum} />
     </>
   )
 }
@@ -61,8 +61,12 @@ const App = (props) => {
       }
     ]
   }
+  const individualParts = course.parts
+  const sumOfExercises = individualParts.reduce(function(sum, parts) {
+    return sum + parts.exercises
+  }, 0)
 
-  return <Course course={course} />
+  return <Course course={course} sum={sumOfExercises}/>
 }
 
 export default App
