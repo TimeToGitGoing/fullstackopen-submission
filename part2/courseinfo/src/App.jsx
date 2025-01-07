@@ -11,13 +11,14 @@ const Course = ({ course, sum }) => {
   return (
     <>
       <Header name={course.name}/>
-      <Part part={course.parts[0]}/>
-      <Part part={course.parts[1]}/>
-      <Part part={course.parts[2]}/>
-      <Part part={course.parts[3]}/>
+      {course.parts.map(part => <Part key={part.id} part={part}/>)}
       <Total sum={sum} />
     </>
   )
+}
+
+const calculateSumOfExercises = (course) => {
+  return course.parts.reduce((sum, part) => sum + part.exercises, 0)
 }
 
 const App = (props) => {
@@ -47,11 +48,8 @@ const App = (props) => {
       }
     ]
   }
-  const individualParts = course.parts
-  const sumOfExercises = individualParts.reduce(function(sum, parts) {
-    return sum + parts.exercises
-  }, 0)
 
+  const sumOfExercises = calculateSumOfExercises(course)
   return <Course course={course} sum={sumOfExercises}/>
 }
 
