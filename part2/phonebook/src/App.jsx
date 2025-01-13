@@ -11,6 +11,8 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('000-0000000')
   const [newSearch, setNewSearch] = useState('')
 
+  console.log(persons)
+
   useEffect(() => {
     personService
       .getAll()
@@ -18,6 +20,27 @@ const App = () => {
         setPersons(initialPersons)
       })
   }, [])
+
+  const clickDelete = (person) => {
+    console.log('clicked!')
+    if (window.confirm(`Do you really want to delete ${person.name}?`)) {
+      const url = `http://localhost:3001/persons/${person.id}`
+      const idToDelete = person.id
+      console.log(person.id)
+
+      axios
+        .delete(url)
+        .then(response => {
+          console.log('deleted successfully!')
+          console.log('after delete ok', persons)
+          setPersons(persons.filter( person => person.id !== idToDelete ))
+        })
+        .catch(error => {
+          console.log('Failed to delete the item')
+          console.log(persons)
+        })
+    }
+  }  
 
   const addPerson = (event) => {
     event.preventDefault()
@@ -65,7 +88,7 @@ const App = () => {
       <PersonForm addPerson={addPerson} newName={newName} handleAddName={handleAddName} newNumber={newNumber} handleAddNumber={handleAddNumber}/>
       <h3>Numbers</h3>
       <ul>
-      <RenderPeople persons={persons} newSearch={newSearch}/>
+      <RenderPeople persons={persons} newSearch={newSearch} clickDelete={clickDelete} setPersons={setPersons}/>
       </ul>
     </div>
   )
