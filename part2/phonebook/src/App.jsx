@@ -5,6 +5,7 @@ import PersonForm from './PersonForm'
 import RenderPeople from './RenderPeople'
 import personService from './services/persons'
 import Notification from './services/Notification'
+import BadNotification from './services/BadNotification'
 import './index.css'
 
 const App = () => {
@@ -12,7 +13,8 @@ const App = () => {
   const [newName, setNewName] = useState('a new person...')
   const [newNumber, setNewNumber] = useState('000-0000000')
   const [newSearch, setNewSearch] = useState('')
-  const [successMessage, setSuccessMessage] = useState('success!!!!')
+  const [successMessage, setSuccessMessage] = useState(null)
+  const [errorMessage, setErrorMessage] = useState(null)
 
   console.log(persons)
 
@@ -69,6 +71,12 @@ const App = () => {
             setSuccessMessage(null)
           }, 5000)
         })
+        .catch(error => {
+          setErrorMessage(`Information of ${samePersonName} has already been removed from server.`)
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 5000)
+        })
     }
     
     else {
@@ -110,6 +118,7 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
       <Notification message={successMessage}/>
+      <BadNotification message={errorMessage}/>
       <SearchFilter newSearch={newSearch} handleFilterName={handleFilterName}/>
       <h3>add a new</h3>
       <PersonForm addPerson={addPerson} newName={newName} handleAddName={handleAddName} newNumber={newNumber} handleAddNumber={handleAddNumber}/>

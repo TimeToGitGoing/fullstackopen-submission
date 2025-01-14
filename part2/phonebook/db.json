@@ -1,11 +1,6 @@
 {
   "persons": [
     {
-      "name": "Arto Hellas",
-      "number": "040-123456",
-      "id": "1"
-    },
-    {
       "id": "758d",
       "name": "Jackie Chan",
       "number": "278621746"
@@ -27,18 +22,8 @@
     },
     {
       "name": "danny",
-      "number": "04004040",
+      "number": "888888888",
       "id": "94bb"
-    },
-    {
-      "name": "hannah montana",
-      "number": "8883278",
-      "id": "cbdc"
-    },
-    {
-      "id": "b01a",
-      "name": "baby driver",
-      "number": "091823081"
     },
     {
       "id": "1a60",
