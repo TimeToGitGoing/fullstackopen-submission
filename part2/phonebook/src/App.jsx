@@ -24,13 +24,11 @@ const App = () => {
   const clickDelete = (person) => {
     console.log('clicked!')
     if (window.confirm(`Do you really want to delete ${person.name}?`)) {
-      const url = `http://localhost:3001/persons/${person.id}`
       const idToDelete = person.id
-      console.log(person.id)
 
-      axios
-        .delete(url)
-        .then(response => {
+      personService
+        .deletePerson(idToDelete)
+        .then(initialPersons => {
           console.log('deleted successfully!')
           console.log('after delete ok', persons)
           setPersons(persons.filter( person => person.id !== idToDelete ))
