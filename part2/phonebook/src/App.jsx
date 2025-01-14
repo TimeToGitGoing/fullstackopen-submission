@@ -4,12 +4,15 @@ import SearchFilter from './SearchFilter'
 import PersonForm from './PersonForm'
 import RenderPeople from './RenderPeople'
 import personService from './services/persons'
+import Notification from './services/Notification'
+import './index.css'
 
 const App = () => {
   const [persons, setPersons] = useState([]) 
   const [newName, setNewName] = useState('a new person...')
   const [newNumber, setNewNumber] = useState('000-0000000')
   const [newSearch, setNewSearch] = useState('')
+  const [successMessage, setSuccessMessage] = useState('success!!!!')
 
   console.log(persons)
 
@@ -61,6 +64,10 @@ const App = () => {
           setPersons(persons.map(p => p.id === returnedPerson.id ? returnedPerson : p ))
           setNewName('')
           setNewNumber('')
+          setSuccessMessage(`Successfully edited ${returnedPerson.name}'s number.`)
+          setTimeout(() => {
+            setSuccessMessage(null)
+          }, 5000)
         })
     }
     
@@ -76,6 +83,10 @@ const App = () => {
         setPersons(persons.concat(returnedPerson))
         setNewName('')
         setNewNumber('')
+        setSuccessMessage(`Added ${returnedPerson.name} successfully.`)
+        setTimeout(() => {
+          setSuccessMessage(null)
+        }, 5000)
       })
 
     setPersons(persons.concat(personObject))
@@ -98,6 +109,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={successMessage}/>
       <SearchFilter newSearch={newSearch} handleFilterName={handleFilterName}/>
       <h3>add a new</h3>
       <PersonForm addPerson={addPerson} newName={newName} handleAddName={handleAddName} newNumber={newNumber} handleAddNumber={handleAddNumber}/>
